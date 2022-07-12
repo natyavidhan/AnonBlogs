@@ -14,7 +14,9 @@ database = database.Database()
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    if 'user' not in session:
+        return render_template("index.html")
+    return render_template("user.html", user=session['user'])
 
 @app.route('/new', methods=["GET", "POST"])
 def new():
@@ -27,6 +29,11 @@ def new():
         session['user'] = page
         return redirect("/")
     return jsonify({'error': 'name already exists'})
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
