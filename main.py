@@ -58,5 +58,12 @@ def blog_new():
     blog = database.new_blog(session['user']['_id'], {'title': title, 'content': content})
     return redirect("/")
 
+@app.route('/p/<page_name>')
+def user(page_name):
+    user = database.get_page(page_name)
+    if user:
+        blogs = database.get_blogs(page_name)
+        return render_template("profile.html", user=user, blogs=blogs)
+
 if __name__ == "__main__":
     app.run(debug=True)

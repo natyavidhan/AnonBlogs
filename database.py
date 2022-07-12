@@ -12,7 +12,7 @@ class Database:
     
     def get_page(self, name, password=None):
         if not password:
-            return self.pages.find_one({'_id': name}) is not None
+            return self.pages.find_one({'_id': name})
         page = self.pages.find_one({'_id': name})
         if page:
             if bcrypt.checkpw(password.encode('utf-8'), page['password']):
