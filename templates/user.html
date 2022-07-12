@@ -13,6 +13,11 @@
         body{
             font-family: 'Inconsolata', monospace;
         }
+        .blog{
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
@@ -21,6 +26,14 @@
             <h1>{{user['_id']}}</h1>
             <button onclick="location.href='/blog/new'">New Blog</button>
             <button onclick="location.href='/logout'">Logout</button>
+        </div>
+        <div class="blogs mt-5">
+            <h2>Your Blogs</h2>
+            {% for blog in blogs %}
+                <div class="blog">
+                    <h4>{{blog.title}}</h4>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>
