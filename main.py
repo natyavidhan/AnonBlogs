@@ -16,7 +16,7 @@ database = database.Database()
 def index():
     if 'user' not in session:
         return render_template("index.html")
-    return render_template("user.html", user=session['user'])
+    return render_template("user.html", user=session['user'], blogs=database.get_blogs(session['user']['_id']))
 
 @app.route('/new', methods=["GET", "POST"])
 def new():
@@ -43,6 +43,17 @@ def verify():
 @app.route('/logout')
 def logout():
     session.pop('user', None)
+    return redirect("/")
+
+@app.route('/blog/new', methods=["GET", "POST"])
+def blog_new():
+    if 'user' not in session:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("blog_new.html")
+    title = request.form["title"]
+    content = request.form["content"]
+    blog = database.new_blog(session['user']['_id'], {'title': title, 'content': content})
     return redirect("/")
 
 if __name__ == "__main__":
