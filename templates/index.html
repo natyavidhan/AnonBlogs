@@ -20,8 +20,15 @@
         <div class="text-center">
             <h1>AnonBlogs</h1>
             <button onclick="location.href='/new'">Create Page</button>
-            <button>Access Page</button>
+            <button onclick="verify_access()">Access Page</button>
         </div>
     </div>
+    <script>
+        function verify_access(){
+            let name = prompt("Enter your name");
+            let key = prompt("Enter your key");
+            location.href = "/verify?name=" + name + "&key=" + key;
+        }
+    </script>
 </body>
 </html>

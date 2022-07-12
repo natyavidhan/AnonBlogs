@@ -30,6 +30,16 @@ def new():
         return redirect("/")
     return jsonify({'error': 'name already exists'})
 
+@app.route('/verify')
+def verify():
+    name = request.args["name"]
+    password = request.args["key"]
+    page = database.get_page(name, password)
+    if page:
+        session['user'] = page
+        return redirect("/")
+    return jsonify({'error': 'invalid name or password'})
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
