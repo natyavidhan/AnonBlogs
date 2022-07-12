@@ -43,4 +43,14 @@ class Database:
     def get_blogs(self, name):
         user = self.pages.find_one({'_id': name})
         if user:
-            return user['blogs']
+            blogs = user['blogs']
+            blogs.reverse()
+            return blogs
+
+    def get_blog(self, name, blog_id):
+        user = self.pages.find_one({'_id': name})
+        if user:
+            for blog in user['blogs']:
+                if blog['id'] == blog_id:
+                    return blog
+        return None

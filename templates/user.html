@@ -17,6 +17,7 @@
             border: 1px solid black;
             padding: 10px;
             margin: 10px;
+            background-color: rgb(220, 220, 220);
         }
     </style>
 </head>
@@ -30,7 +31,7 @@
         <div class="blogs mt-5">
             <h2>Your Blogs</h2>
             {% for blog in blogs %}
-                <div class="blog">
+                <div class="blog" onclick="location.href=`/p/{{user._id}}/{{blog.id}}`">
                     <h4>{{blog.title}}</h4>
                 </div>
             {% endfor %}

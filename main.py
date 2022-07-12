@@ -59,11 +59,20 @@ def blog_new():
     return redirect("/")
 
 @app.route('/p/<page_name>')
-def user(page_name):
+def page(page_name):
     user = database.get_page(page_name)
     if user:
         blogs = database.get_blogs(page_name)
         return render_template("profile.html", user=user, blogs=blogs)
+
+@app.route('/p/<page_name>/<blog_id>')
+def blog(page_name, blog_id):
+    user = database.get_page(page_name)
+    if user:
+        blog = database.get_blog(page_name, blog_id)
+        if blog:
+            return render_template("blog.html", user=user, blog=blog)
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
