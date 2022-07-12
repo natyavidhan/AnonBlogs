@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, jsonify, request
+from flask import Flask, render_template, redirect, jsonify, request, session
 from dotenv import load_dotenv
 
 import os
@@ -9,6 +9,7 @@ if os.path.isfile(".env"):
     load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
 database = database.Database()
 
 @app.route('/')
@@ -21,7 +22,9 @@ def new():
         return render_template("new.html")
     name = request.form["name"]
     password = request.form["key"]
-    if database.new_page(name, password):
+    page = database.new_page(name, password)
+    if page:
+        session['user'] = page
         return redirect("/")
     return jsonify({'error': 'name already exists'})
 
