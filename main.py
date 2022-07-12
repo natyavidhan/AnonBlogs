@@ -64,6 +64,7 @@ def page(page_name):
     if user:
         blogs = database.get_blogs(page_name)
         return render_template("profile.html", user=user, blogs=blogs)
+    return redirect("/")
 
 @app.route('/p/<page_name>/<blog_id>')
 def blog(page_name, blog_id):
