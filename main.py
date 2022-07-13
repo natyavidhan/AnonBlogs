@@ -17,7 +17,6 @@ def index():
     if 'user' not in session:
         return render_template("index.html")
     blogs = database.get_blogs(session['user']['_id'])
-    blogs.reverse()
     return render_template("user.html", user=session['user'], blogs=blogs)
 
 @app.route('/new', methods=["GET", "POST"])
